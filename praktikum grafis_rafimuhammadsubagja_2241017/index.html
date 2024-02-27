@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Titik Koordinat</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  canvas {
+    border: 2px solid #333;
+    background-color: #f0f0f0;
+  }
+</style>
+</head>
+<body>
+<h1 style="text-align:             center;">Titik Koordinat</h1>
+<canvas id="coordinateCanvas" width="400" height="400"></canvas>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const canvas = document.getElementById('coordinateCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Array of coordinate points
+  const coordinates = [
+    { x: 50, y: 50 },
+    { x: 100, y: 100 },
+    { x: 150, y: 150 },
+    { x: 200, y: 200 },
+    { x: 250, y: 250 },
+    { x: 300, y: 300 },
+    { x: 350, y: 350 },
+    { x: 100, y: 200 },
+    { x: 200, y: 100 },
+    { x: 300, y: 200 }
+  ];
+
+  // Draw coordinates
+  coordinates.forEach(coord => {
+    ctx.beginPath();
+    ctx.arc(coord.x, coord.y, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = '#333';
+    ctx.fill();
+  });
+});
+</script>
+</body>
+</html>
