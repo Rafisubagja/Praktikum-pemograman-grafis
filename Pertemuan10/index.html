@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Run Program</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        canvas {
+            display: block;
+            margin: auto;
+            background-color: rgb(2, 253, 241); /* Mengatur warna latar belakang kanvas */
+        }
+        h1 {
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <h1>PEMOGRAMAN GRAFIS</h1>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Mendapatkan elemen kanvas
+            const canvas = document.getElementById('myCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Mengatur kecepatan rotasi
+            let rotationSpeed = 0.1; // Menambah kecepatan rotasi
+
+            // Sudut rotasi awal
+            let rotationAngle = 0;
+
+            // Fungsi untuk mendapatkan warna acak
+            function getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            // Fungsi untuk menggambar segitiga
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Membersihkan kanvas
+
+                // Mengatur posisi pusat segitiga
+                const positions = [
+                    { x: canvas.width / 4, y: canvas.height / 4 }, // Segitiga kiri atas
+                    { x: 3 * canvas.width / 4, y: canvas.height / 4 }, // Segitiga kanan atas
+                    { x: canvas.width / 2, y: 2 * canvas.height / 4 }, // Segitiga bawah atas
+                    { x: canvas.width / 2, y: 3 * canvas.height / 4 } // Segitiga bawah bawah
+                ];
+
+                positions.forEach((pos, index) => {
+                    ctx.save();
+                    ctx.translate(pos.x, pos.y);
+                    ctx.rotate(rotationAngle);
+                    if (index < 2) {
+                        ctx.fillStyle = getRandomColor(); // Mendapatkan warna acak untuk segitiga atas
+                    } else {
+                        ctx.fillStyle = '#FF0000'; // Warna solid untuk segitiga bawah (misalnya merah)
+                    }
+                    ctx.beginPath();
+                    ctx.moveTo(0, -50); // Pindah ke titik puncak
+                    ctx.lineTo(50, 50); // Garis ke sudut kanan bawah
+                    ctx.lineTo(-50, 50); // Garis ke sudut kiri bawah
+                    ctx.closePath();
+                    ctx.fill(); // Menggambar segitiga
+                    ctx.restore();
+                });
+
+                // Meningkatkan sudut rotasi untuk animasi berputar
+                rotationAngle += rotationSpeed;
+
+                requestAnimationFrame(draw); // Mengulangi animasi
+            }
+
+            draw(); // Memulai animasi
+        });
+    </script>
+</body>
+</html>
